@@ -144,7 +144,9 @@ Jenkins is an open source continuous integration (CI) server. It manages and con
 
 ### how To pass parameter dynamically
       - goto jenkins>configuration> general> select "This project is parameterized" checkbox and Parameter name and Value.
-      ![image 1](/asset/Image1.png)
+![image 1](/asset/images/Image1.png)
+![image 2](/asset/images/Image2.png)
+![image 3](/asset/images/Image3.png)
       
                   
       
