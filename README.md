@@ -78,6 +78,77 @@ Jenkins is an open source continuous integration (CI) server. It manages and con
       ```
 
   ## Getting started with jenkins
+  ### 1. creaing a simle job
+        - open jenkin ui and click on new item > give name(:my-first-job) > select freesyle project 
+        - configuration window will open > add build step as executable shell and enter below script
+              ``` echo hello world ```
+        - job will be creating on click  on build now. i will run tha job and you can see he scri execuion in console output window\
+        - we can update script i.e. echo "current date and time is $(date)" and after running i show current date in console.
+        - how above date cmsd is evaluaion. because jenkisn executes that command in jenkin conainer.
+
+      - in putty below commad is used to go jenkin conainer.
+            ``` docker exec -ti jenkins bash```
+            and enter echo "current date and time is $(date)" gives curren date is Sun Aug  3 11:17:30 UTC 2025.
+
+           ``` 
+            jenkins@e833fb213914:/$ name=avinash
+            jenkins@e833fb213914:/$ $(name)
+            bash: name: command not found
+            jenkins@e833fb213914:/$ echo $name
+            avinash
+            jenkins@e833fb213914:/$ echo "hello $name, current date and time is $(date)"
+            hello avinash, current date and time is Sun Aug  3 11:29:58 UTC 2025 ```
+
+      - in jenkin us shell script udaes as below
+            ```NAME=Avinash
+                  echo "Helloa $(NAME),current date and time is $(date)"```
+
+                  same we can see in console as well.
+      - in shell how to save cmd  output in file
+            ```
+            jenkins@e833fb213914:/$ NAME=Avinash
+            jenkins@e833fb213914:/$ echo "hello $NAME, the current date is $(date)" > tmp/info
+            jenkins@e833fb213914:/$ cat tmp/info
+            hello Avinash, the current date is Sun Aug  3 13:07:45 UTC 2025```
+      - in jenkins execue shell paste and run build
+            ``NAME=Avinash
+                  echo "Hello $NAME, the current date is $(date)" > /tmp/info```
+
+      - create a shell script file and execute in jenkins conainer
+            ```
+                  [jenkins@localhost jenkins-data]$  vi script.sh
+                        ```
+                        #!bin/bash
+                        NAME=$1
+                        LASTNAME=$2
+                        echo "Hello $NAME $LASTNAME" ```
+                  [jenkins@localhost jenkins-data]$ ./script.sh Avinash Devadiga
+                  -bash: ./script.sh: Permission denied
+                  [jenkins@localhost jenkins-data]$ chmod +x ./script.sh
+                  [jenkins@localhost jenkins-data]$ ./script.sh Avinash Devadiga
+                  Hello Avinash Devadiga
+                  [jenkins@localhost jenkins-data]$ docker cp script.sh jenkins:/tmp/script.sh
+                  Successfully copied 2.05kB to jenkins:/tmp/script.sh
+                  [jenkins@localhost jenkins-data]$ docker exec -ti jenkins bash
+                  jenkins@e833fb213914:/$ ./tmp/script.sh
+                  Hello
+                  jenkins@e833fb213914:/$ ./tmp/script.sh Avinash Devadiga
+                  Hello Avinash Devadiga ```
+
+      -  in jenkins execue shell paste and run build
+            ``/tmp/script.sh Avinash Devadiga```
+                  or
+            ```Name=Avinash
+                  Lastname=Devadiga
+                  /tmp/script.sh $Name $Lastname```
+
+### how To pass parameter dynamically
+      - goto jenkins>configuration> general> select "This project is parameterized" checkbox and Parameter name and Value.
+      ![image 1]()
+                  
+      
+      
+
       
         
         
